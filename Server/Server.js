@@ -8,8 +8,9 @@ const Path = require("path");
 const cors = require("cors");
 app.use(express.json());
 app.use(cors());
-// app.use("/api/auth", require("./routes/auth"));
-// app.use("/api", require("./routes/upload"));
+app.use("/Spotify/auth", require("./Routes/auth"));
+app.use("/Spotify", require("./Routes/AddSongs"));
+app.use("/Spotify", require("./Routes/AddArtist"));
 
 Mongoose.connect(
   "mongodb+srv://Hrishi:vy0QW1DDc3zdlZHd@cluster0.gdsb5d1.mongodb.net/?retryWrites=true&w=majority"
