@@ -10,7 +10,7 @@ const SongsSchema = new mongoose.Schema({
   },
   Cover: {
     type: String,
-    default: "No Photo",
+    // default: "No Photo",
   },
 });
 const Songs = mongoose.model("Songs", SongsSchema);

@@ -1,8 +1,9 @@
 const Songs = require("../models/Songs");
 const express = require("express");
 const router = express.Router();
+const auth_user = require("../middleware/authuser");
 //////////////////////////////////////////
-router.post("/AddSong", async (req, res) => {
+router.post("/AddSong", auth_user, async (req, res) => {
   try {
     let AddSong = await Songs.findOne({ Song_Name: req.body.Song_Name });
     if (AddSong) {
@@ -13,6 +14,7 @@ router.post("/AddSong", async (req, res) => {
     AddSong = await new Songs({
       Song_Name: req.body.Song_Name,
       DOR: req.body.DOR,
+      Cover: req.body.Cover,
     });
     AddSong.save();
     res.json({ message: "Song added succesfully ", data: AddSong });
@@ -22,7 +24,7 @@ router.post("/AddSong", async (req, res) => {
   }
 });
 ////////////////////////////////////////////////
-router.get("/getAllSongs", async (req, res) => {
+router.get("/getAllSongs", auth_user, async (req, res) => {
   try {
     let getAllSongs = await Songs.find();
     if (getAllSongs == "") {

@@ -1,8 +1,9 @@
 const Artist = require("../models/Artist");
 const express = require("express");
 const router = express.Router();
+const auth_user = require("../middleware/authuser");
 /////////////////////////////////////////
-router.post("/AddArtist", async (req, res) => {
+router.post("/AddArtist", auth_user, async (req, res) => {
   try {
     let AddArtist = await Artist.findOne({ Artist_Name: req.body.Artist_Name });
     if (AddArtist) {
@@ -23,7 +24,7 @@ router.post("/AddArtist", async (req, res) => {
   }
 });
 /////////////////////////////////////////
-router.get("/getAllArtists", async (req, res) => {
+router.get("/getAllArtists", auth_user, async (req, res) => {
   try {
     let getAllArtists = await Artist.find();
     if (getAllArtists == "") {
