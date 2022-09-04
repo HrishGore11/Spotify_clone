@@ -1,0 +1,48 @@
+.css-1oqqzyl-MuiContainer-root {
+  max-width: 1200px;
+  margin-top: 30px;
+  margin-bottom: 30px;
+}
+.css-12zvdn5 {
+  background-color: #cfe8fc;
+  max-height: fit-content;
+}
+.box1div {
+  padding-left: 50px;
+  padding-right: 50px;
+  padding-top: 20px;
+  padding-bottom: 30px;
+}
+.Cancelandsavebtn {
+  margin: 20px 30px !important;
+}
+.SongandDor {
+  display: inline-flex;
+}
+.Coverimage {
+  margin: 15px 0px;
+}
+.css-btulry-MuiInputBase-root-MuiOutlinedInput-root {
+  font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+  font-weight: 400;
+  font-size: 1rem;
+  line-height: 1.4375em;
+  letter-spacing: 0.00938em;
+  color: rgba(0, 0, 0, 0.87);
+  box-sizing: border-box;
+  position: relative;
+  cursor: text;
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  position: relative;
+  border-radius: 4px;
+  background-color: white;
+  width: 500px;
+  margin: 0px 15px;
+}
