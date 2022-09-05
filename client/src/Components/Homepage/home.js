@@ -15,14 +15,19 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import Grid from "@mui/material/Unstable_Grid2";
-// import Box from "@mui/material/Box";
+import FileDownloadIcon from "@mui/icons-material/FileDownload";
+import DeleteIcon from "@mui/icons-material/Delete";
+import IconButton from "@mui/material/IconButton";
+import EditIcon from "@mui/icons-material/Edit";
+import Box from "@mui/material/Box";
+import TextField from "@mui/material/TextField";
 // import Card from "@mui/material/Card";
 // import CardActions from "@mui/material/CardActions";
 // import CardContent from "@mui/material/CardContent";
 import Button from "@mui/material/Button";
 import CardMedia from "@mui/material/CardMedia";
 import { Link } from "@mui/material";
-
+import Modal from "@mui/material/Modal";
 export default function Home() {
   let navigate = useNavigate();
 
@@ -37,11 +42,21 @@ export default function Home() {
 
   const [ShowSongs, setShowSongs] = useState([]);
   const [ShowArtists, setShowArtists] = useState([]);
-
+  const [open, setOpen] = useState(false);
+  const [value, setValue] = useState(2);
+  const [Data, setData] = useState({});
+  const handleOpen = (rows) => {
+    console.log(rows);
+    setOpen(true);
+    setData(rows);
+  };
+  const handleClose = () => {
+    setOpen(false);
+  };
   //////////////////////////////To Show  All Songs:
 
-  const showSongs = () => {
-    axios
+  const showSongs = async () => {
+    await axios
       .get("http://localhost:9092/Spotify/getAllSongs", {
         headers: {
           AUTHORIZATION: localStorage.getItem("token"),
@@ -50,12 +65,12 @@ export default function Home() {
       })
       .then((data) => {
         setShowSongs(data.data.data);
-        console.log(ShowSongs);
       })
       .catch((err) => {
         console.log(err);
       });
   };
+  console.log(ShowSongs);
   //////////////////////////////////////////////// To Show uploaded Artist
 
   const showArtists = () => {
@@ -121,17 +136,70 @@ export default function Home() {
           </Button>
         </Grid>
       </Grid>
-      {/* <div className="addsongbtn">
-        <Button variant="outlined">
-          {" "}
-          <Link href="/AddSong" color="inherit">
-            + ADD Song
-          </Link>
-        </Button>
-      </div>
-      <div className="h21">
-        <h2>Top 10 Songs</h2>
-      </div> */}
+      <Modal
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+      >
+        <Box className="box11">
+          <div className="css-15m7mkq1">
+            <h4 class="MuiTypography-root MuiTypography-h4 css-1139jqi1">
+              Edit Song Details
+            </h4>
+          </div>
+          <div className="form-div11">
+            <form>
+              <div className="form-div21">
+                <Box sx={{ display: "flex", alignItems: "flex-end" }}>
+                  {/* <TextField
+                    fullWidth
+                    // id="input-with-sx"
+                    label="Song Name"
+                    variant="standard"
+                    id="Key"
+                    name="Key"
+                    // onChange={onChange}
+                  /> */}
+                  <StyledRating
+                    name="customized-color"
+                    defaultValue={2}
+                    // getLabelText={(value: Number) =>
+                    //   `${value} Heart${value !== 1 ? "s" : ""}`
+                    // }
+                    value={rows.Rating}
+                    onChange={(event, newValue) => {
+                      setValue(newValue);
+                    }}
+                    precision={0.5}
+                    icon={<FavoriteIcon fontSize="inherit" />}
+                    emptyIcon={<FavoriteBorderIcon fontSize="inherit" />}
+                  />
+                </Box>
+              </div>
+              <div class="MuiBox-root css-1id64jh1">
+                <button
+                  class="MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeMedium MuiButton-containedSizeMedium MuiButton-fullWidth MuiButtonBase-root css-oagsia"
+                  tabindex="0"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    // Verify(
+                    //   Data._id,
+                    //   Data.filePath,
+                    //   Data.fileType,
+                    //   Data.fileKey,
+                    //   Key
+                    // );
+                  }}
+                >
+                  Download file
+                  {/* <span class="MuiTouchRipple-root css-w0pj6f"></span> */}
+                </button>
+              </div>
+            </form>
+          </div>
+        </Box>
+      </Modal>
       <TableContainer component={Paper}>
         <Table sx={{ minWidth: 700 }} aria-label="customized table">
           <TableHead>
@@ -141,6 +209,7 @@ export default function Home() {
               <StyledTableCell>Date of Release</StyledTableCell>
               <StyledTableCell>Artists</StyledTableCell>
               <StyledTableCell>Ratings</StyledTableCell>
+              <StyledTableCell>Actions</StyledTableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -159,13 +228,33 @@ export default function Home() {
                   <StyledRating
                     name="customized-color"
                     defaultValue={2}
-                    getLabelText={(value: Number) =>
-                      `${value} Heart${value !== 1 ? "s" : ""}`
-                    }
+                    // getLabelText={(value: Number) =>
+                    //   `${value} Heart${value !== 1 ? "s" : ""}`
+                    // }
+                    value={rows.Rating}
+                    onChange={(event, newValue) => {
+                      setValue(newValue);
+                    }}
                     precision={0.5}
                     icon={<FavoriteIcon fontSize="inherit" />}
                     emptyIcon={<FavoriteBorderIcon fontSize="inherit" />}
                   />
+                  <IconButton
+                    aria-label="delete"
+                    size="large"
+                    onClick={() => handleOpen(rows)}
+                  >
+                    <EditIcon />
+                  </IconButton>
+                </StyledTableCell>
+                <StyledTableCell>
+                  <IconButton
+                    aria-label="delete"
+                    size="large"
+                    // onClick={() => deleteData(rows._id)}
+                  >
+                    <DeleteIcon />
+                  </IconButton>
                 </StyledTableCell>
               </StyledTableRow>
             ))}

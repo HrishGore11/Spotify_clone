@@ -15,6 +15,9 @@ const SongsSchema = new mongoose.Schema({
   Artists: {
     type: Array,
   },
+  Rating: {
+    type: Number,
+  },
 });
 const Songs = mongoose.model("Songs", SongsSchema);
 module.exports = Songs;

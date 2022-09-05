@@ -16,6 +16,7 @@ router.post("/AddSong", auth_user, async (req, res) => {
       DOR: req.body.DOR,
       Cover: req.body.Cover,
       Artists: req.body.Artists,
+      Rating: req.body.Rating,
     });
     AddSong.save();
     res.json({ message: "Song added succesfully ", data: AddSong });
@@ -39,6 +40,41 @@ router.get("/getAllSongs", auth_user, async (req, res) => {
     }
   } catch (error) {
     console.log(error);
+    res.status(400).send(error.message);
+  }
+});
+//////////////////////////////////////////////////update
+router.put("/EditRating/:id", auth_user, async (req, res) => {
+  try {
+    const id = req.params.id;
+    const body = req.body;
+    let EditRating = await Songs.findOneAndUpdate(
+      { id },
+      {
+        $set: {
+          Rating: body.Rating,
+        },
+      }
+    );
+    res.json({ message: "success", success: true, data: EditRating });
+  } catch (error) {
+    console.log(error);
+    res.status(400).send(error.message);
+  }
+});
+////////////////////////////////////////
+router.delete("/deleteSong/:id", auth_user, async (req, res) => {
+  try {
+    const id = req.params.id;
+    let data = await Songs.findById(id);
+    if (!data) {
+      return res.status(404).json({ message: "Song not found" });
+    }
+
+    data = await Songs.findByIdAndDelete(id);
+
+    res.json({ message: "Song has been deleted successfully", data: data });
+  } catch (error) {
     res.status(400).send(error.message);
   }
 });
