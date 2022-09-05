@@ -89,6 +89,51 @@ export default function Home() {
         console.log(err);
       });
   };
+  //////////////////////////////////////// to update Rating
+  const EditRating = async (Data1) => {
+    console.log(Data1.Rating, Data1._id);
+    await axios
+      .put(
+        "http://localhost:9092/Spotify/EditRating/" + `${Data1._id}`,
+        Data1,
+        {
+          headers: {
+            AUTHORIZATION: localStorage.getItem("token"),
+            // "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjJlMTk5OTY1MzcxNDg3YjBlY2UwNjdjIn0sImlhdCI6MTY1ODk1MjEwNX0.ouTQH7jWPoR2IJKDYVBnGWAJz2xikWdJ3lRHxlOoswY",
+          },
+        }
+      )
+      .then((data) => {
+        console.log(data);
+        handleClose();
+        ShowSongs();
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+  /////////////////////////////////////////////////////Delete Song
+  const deleteData = async (id) => {
+    try {
+      const res = await axios.delete(
+        "http://localhost:9092/Spotify/deleteSong/" + `${id}`,
+        {
+          headers: {
+            AUTHORIZATION: localStorage.getItem("token"),
+          },
+        }
+      );
+      if (res.data.message === "Song has been deleted successfully") {
+        alert(res.data.message);
+        const newData = ShowSongs.filter((rows) => {
+          return rows._id !== id;
+        });
+        setShowSongs(newData);
+      }
+    } catch (err) {
+      console.error(err);
+    }
+  };
 
   const StyledTableCell = styled(TableCell)(({ theme }) => ({
     [`&.${tableCellClasses.head}`]: {
@@ -167,9 +212,12 @@ export default function Home() {
                     // getLabelText={(value: Number) =>
                     //   `${value} Heart${value !== 1 ? "s" : ""}`
                     // }
-                    // value={rows.Rating}
+                    value={Data.Rating}
                     onChange={(event, newValue) => {
-                      setValue(newValue);
+                      console.log(newValue);
+                      Data.Rating = newValue;
+
+                      setData({ ...Data });
                     }}
                     precision={0.5}
                     icon={<FavoriteIcon fontSize="inherit" />}
@@ -183,16 +231,10 @@ export default function Home() {
                   tabindex="0"
                   onClick={(e) => {
                     e.preventDefault();
-                    // Verify(
-                    //   Data._id,
-                    //   Data.filePath,
-                    //   Data.fileType,
-                    //   Data.fileKey,
-                    //   Key
-                    // );
+                    EditRating(Data);
                   }}
                 >
-                  Download file
+                  Add Rating
                   {/* <span class="MuiTouchRipple-root css-w0pj6f"></span> */}
                 </button>
               </div>
@@ -232,9 +274,9 @@ export default function Home() {
                     //   `${value} Heart${value !== 1 ? "s" : ""}`
                     // }
                     value={rows.Rating}
-                    onChange={(event, newValue) => {
-                      setValue(newValue);
-                    }}
+                    // onChange={(event, newValue) => {
+                    //   setValue(newValue);
+                    // }}
                     precision={0.5}
                     icon={<FavoriteIcon fontSize="inherit" />}
                     emptyIcon={<FavoriteBorderIcon fontSize="inherit" />}
@@ -251,7 +293,7 @@ export default function Home() {
                   <IconButton
                     aria-label="delete"
                     size="large"
-                    // onClick={() => deleteData(rows._id)}
+                    onClick={() => deleteData(rows._id)}
                   >
                     <DeleteIcon />
                   </IconButton>
