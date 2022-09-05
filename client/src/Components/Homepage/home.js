@@ -167,7 +167,7 @@ export default function Home() {
                     // getLabelText={(value: Number) =>
                     //   `${value} Heart${value !== 1 ? "s" : ""}`
                     // }
-                    value={rows.Rating}
+                    // value={rows.Rating}
                     onChange={(event, newValue) => {
                       setValue(newValue);
                     }}
