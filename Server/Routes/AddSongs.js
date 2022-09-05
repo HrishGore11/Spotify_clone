@@ -15,6 +15,7 @@ router.post("/AddSong", auth_user, async (req, res) => {
       Song_Name: req.body.Song_Name,
       DOR: req.body.DOR,
       Cover: req.body.Cover,
+      Artists: req.body.Artists,
     });
     AddSong.save();
     res.json({ message: "Song added succesfully ", data: AddSong });

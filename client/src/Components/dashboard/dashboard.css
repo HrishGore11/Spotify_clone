@@ -328,24 +328,7 @@ a:visited {
   box-shadow: rgb(0 0 0 / 10%) 0rem 0.25rem 0.375rem -0.0625rem,
     rgb(0 0 0 / 6%) 0rem 0.125rem 0.25rem -0.0625rem;
 }
-/* .css-wbk34u:hover {
-      opacity: 1;
-      background: transparent;
-      color: rgb(255, 255, 255);
-      background: linear-gradient(195deg, rgb(73, 163, 241), rgb(26, 115, 232));
-    
-      display: flex;
-      -webkit-box-align: center;
-      align-items: center;
-      width: 100%;
-      padding: 0.5rem 0.625rem;
-     margin: 0.09375rem 1rem; 
-      border-radius: 0.375rem;
-      cursor: pointer;
-      user-select: none;
-      white-space: nowrap;
-      box-shadow: none;
-    } */
+
 .css-13sbe1j {
   display: flex;
   -webkit-box-pack: start;

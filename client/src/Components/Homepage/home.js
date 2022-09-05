@@ -154,8 +154,7 @@ export default function Home() {
                 />
                 <StyledTableCell>{rows.Song_Name}</StyledTableCell>
                 <StyledTableCell>{rows.DOR}</StyledTableCell>
-                <StyledTableCell>{rows.Song_Name}</StyledTableCell>
-
+                <StyledTableCell>{rows.Artists.toString()}</StyledTableCell>
                 <StyledTableCell>
                   <StyledRating
                     name="customized-color"

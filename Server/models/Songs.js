@@ -12,6 +12,9 @@ const SongsSchema = new mongoose.Schema({
     type: String,
     // default: "No Photo",
   },
+  Artists: {
+    type: Array,
+  },
 });
 const Songs = mongoose.model("Songs", SongsSchema);
 module.exports = Songs;
